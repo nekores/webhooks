@@ -1,12 +1,21 @@
-const http = require('http');
+const express = require("express");
 
-const server = http.createServer((req, res) => {
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    res.end('Hello World1121\n');
-});
+const app = express();
 
-const port = process.env.PORT || 3000;
-server.listen(port, () => {
-    console.log(`Server running at port ${port}`);
+const dotenv = require("dotenv");
+
+// settingup config.env file variables
+dotenv.config({ path: "./config/config.env" });
+
+// importing routes
+const jobs = require("./routes/jobs");
+
+app.use("/api/v1", jobs);
+
+const PORT = process.env.PORT;
+
+app.listen(PORT, () => {
+  console.log(
+    `Server started on port: ${process.env.PORT} in ${process.env.NODE_ENV} mode.`
+  );
 });
