@@ -1,21 +1,13 @@
-const express = require("express");
+const express = require('express'); // Import the Express module
+const app = express(); // Create an Express application
 
-const app = express();
+// Define a route for the root URL
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
 
-const dotenv = require("dotenv");
-
-// settingup config.env file variables
-dotenv.config({ path: "./config/config.env" });
-
-// importing routes
-const jobs = require("./routes/jobs");
-
-app.use("/api/v1", jobs);
-
-const PORT = process.env.PORT;
-
-app.listen(PORT, () => {
-  console.log(
-    `Server started on port: ${process.env.PORT} in ${process.env.NODE_ENV} mode.`
-  );
+// Start the server on port 3000
+const port = 3000;
+app.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}`);
 });
